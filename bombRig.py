@@ -17,6 +17,8 @@ FK_CENTER_COLOR = 17    # yellow
 IK_CENTER_COLOR = 17    # yellow
 ALL_CON_COLOR = 16      # white
 
+LOC_SCALE = 10
+
 def createFkChain(targets=[], parent='', side=''):
     # takes targets list for FK generation
     # parent generated FK controls under given parent node
@@ -47,11 +49,18 @@ def createFkChain(targets=[], parent='', side=''):
             shape = cmds.listRelatives(fkLoc, s=1)[0]
             cmds.setAttr(f'{shape}.overrideEnabled', 1)
             cmds.setAttr(f'{shape}.overrideColor', FK_LEFT_COLOR)
-                
+
+        # scale locator
+        shape = cmds.listRelatives(fkLoc, s=1)[0]
+        cmds.setAttr(f'{shape}.localScaleX', LOC_SCALE)
+        cmds.setAttr(f'{shape}.localScaleY', LOC_SCALE)
+        cmds.setAttr(f'{shape}.localScaleZ', LOC_SCALE)
+
         fkLocs.append(fkLoc)
         fkLocGroup = cmds.group(fkLoc, name=f'{target}_fk_loc_group')
         fkLocGroups.append(fkLocGroup)
         cmds.matchTransform(fkLocGroup, target, pos=1, rot=1)
+
         # parent previously created locator group to newly created locator
         if len(fkLocGroups) > 1:
             cmds.parent(fkLocGroups[-2], fkLoc)
@@ -134,6 +143,13 @@ def createIkChain(targets=[], parent='', space='world', side='', ikOffset=50):
             shape = cmds.listRelatives(loc, s=1)[0]
             cmds.setAttr(f'{shape}.overrideEnabled', 1)
             cmds.setAttr(f'{shape}.overrideColor', IK_LEFT_COLOR)
+
+    # scale locator
+    for loc in [ikLoc, poleVectorLoc]:
+        shape = cmds.listRelatives(loc, s=1)[0]
+        cmds.setAttr(f'{shape}.localScaleX', LOC_SCALE)
+        cmds.setAttr(f'{shape}.localScaleY', LOC_SCALE)
+        cmds.setAttr(f'{shape}.localScaleZ', LOC_SCALE)
 
     if space != 'world':
         cmds.parentConstraint(space, tempIkGroup)
