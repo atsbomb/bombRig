@@ -1,0 +1,28 @@
+
+#createFkChain(['joint2', 'joint3', 'joint4', 'joint5'], 'joint1')
+createFkChain(['mixamorig:LeftUpLeg','mixamorig:LeftLeg','mixamorig:LeftFoot','mixamorig:LeftToeBase'], 'mixamorig:Hips')
+createFkChain(['mixamorig:RightUpLeg','mixamorig:RightLeg','mixamorig:RightFoot','mixamorig:RightToeBase'], 'mixamorig:Hips')
+createFkChain(['mixamorig:LeftShoulder','mixamorig:LeftArm','mixamorig:LeftForeArm','mixamorig:LeftHand'], 'mixamorig:Spine2')
+createFkChain(['mixamorig:RightShoulder','mixamorig:RightArm','mixamorig:RightForeArm','mixamorig:RightHand'], 'mixamorig:Spine2')
+
+createFkChain(['thigh_l', 'calf_l', 'foot_l', 'ball_l'], 'pelvis')
+createFkChain(['thigh_r', 'calf_r', 'foot_r', 'ball_r'], 'pelvis')
+createFkChain(['clavicle_l', 'upperarm_l', 'lowerarm_l', 'hand_l'], 'spine_05')
+createFkChain(['clavicle_r', 'upperarm_r', 'lowerarm_r', 'hand_r'], 'spine_05')
+createFkChain(['pelvis', 'spine_01', 'spine_02', 'spine_03', 'spine_04', 'neck_01', 'head'], 'locator1')
+
+
+createFkChain(['spine_01', 'spine_02', 'spine_03', 'spine_04', 'neck_01', 'head'], 'pelvis')
+createFkChain(['clavicle_l', 'upperarm_l', 'lowerarm_l', 'hand_l'], 'spine_05')
+createFkChain(['clavicle_r', 'upperarm_r', 'lowerarm_r', 'hand_r'], 'spine_05')
+createIkChain(targets=['thigh_l', 'calf_l', 'foot_l'], parent='pelvis', ikOffset=50)
+createIkChain(targets=['thigh_r', 'calf_r', 'foot_r'], parent='pelvis', ikOffset=50)
+
+
+# capoera Mixamo FBX
+createFkChain(['mixamorig:Hips','mixamorig:Spine','mixamorig:Spine1','mixamorig:Neck','mixamorig:Head'], 'locator1')
+createIkChain(targets=['mixamorig:LeftUpLeg', 'mixamorig:LeftLeg', 'mixamorig:LeftFoot'], parent='mixamorig:Hips', ikOffset=50)
+createIkChain(targets=['mixamorig:RightUpLeg', 'mixamorig:RightLeg', 'mixamorig:RightFoot'], parent='mixamorig:Hips', ikOffset=50)
+createIkChain(targets=['mixamorig:LeftArm', 'mixamorig:LeftForeArm', 'mixamorig:LeftHand'], parent='mixamorig:LeftShoulder', ikOffset=50)
+createIkChain(targets=['mixamorig:RightArm', 'mixamorig:RightForeArm', 'mixamorig:RightHand'], parent='mixamorig:RightShoulder', ikOffset=50)
+
