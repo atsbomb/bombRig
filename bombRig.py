@@ -7,7 +7,17 @@
 
 import maya.cmds as cmds
 
-def createFkChain(targets=[], parent=''):
+
+# CONST
+FK_RIGHT_COLOR = 13     # red
+IK_RIGHT_COLOR = 13     # red
+FK_LEFT_COLOR = 6       # blue
+IK_LEFT_COLOR = 6       # blue
+FK_CENTER_COLOR = 17    # yellow
+IK_CENTER_COLOR = 17    # yellow
+ALL_CON_COLOR = 16      # white
+
+def createFkChain(targets=[], parent='', side=''):
     # takes targets list for FK generation
     # parent generated FK controls under given parent node
 
@@ -23,6 +33,21 @@ def createFkChain(targets=[], parent=''):
 
     for target in targets:
         fkLoc = cmds.spaceLocator(name=f'{target}_fk_loc')[0]
+        
+        # colorize locator
+        if side == 'center':
+            shape = cmds.listRelatives(fkLoc, s=1)[0]
+            cmds.setAttr(f'{shape}.overrideEnabled', 1)
+            cmds.setAttr(f'{shape}.overrideColor', FK_CENTER_COLOR)
+        if side == 'right':
+            shape = cmds.listRelatives(fkLoc, s=1)[0]
+            cmds.setAttr(f'{shape}.overrideEnabled', 1)
+            cmds.setAttr(f'{shape}.overrideColor', FK_RIGHT_COLOR)
+        if side == 'left':
+            shape = cmds.listRelatives(fkLoc, s=1)[0]
+            cmds.setAttr(f'{shape}.overrideEnabled', 1)
+            cmds.setAttr(f'{shape}.overrideColor', FK_LEFT_COLOR)
+                
         fkLocs.append(fkLoc)
         fkLocGroup = cmds.group(fkLoc, name=f'{target}_fk_loc_group')
         fkLocGroups.append(fkLocGroup)
@@ -51,7 +76,7 @@ def createFkChain(targets=[], parent=''):
     for fkLoc in fkLocs:
         cmds.sets(fkLoc, e=1, include='animLocs')
 
-def createIkChain(targets=[], parent='', ikOffset=50):
+def createIkChain(targets=[], parent='', space='world', side='', ikOffset=50):
     # provide exactly 3 target objects for RP IK chain
 
     startTime = cmds.playbackOptions(q=1, minTime=1)
@@ -94,6 +119,24 @@ def createIkChain(targets=[], parent='', ikOffset=50):
     cmds.parent(locTopGroup, tempIkGroup)
     cmds.parent(poleVectorLoc, tempIkGroup)
     cmds.parent(ikLoc, tempIkGroup)
+
+    # colorize locator
+    for loc in [ikLoc, poleVectorLoc]:
+        if side == 'center':
+            shape = cmds.listRelatives(loc, s=1)[0]
+            cmds.setAttr(f'{shape}.overrideEnabled', 1)
+            cmds.setAttr(f'{shape}.overrideColor', IK_CENTER_COLOR)
+        if side == 'right':
+            shape = cmds.listRelatives(loc, s=1)[0]
+            cmds.setAttr(f'{shape}.overrideEnabled', 1)
+            cmds.setAttr(f'{shape}.overrideColor', IK_RIGHT_COLOR)
+        if side == 'left':
+            shape = cmds.listRelatives(loc, s=1)[0]
+            cmds.setAttr(f'{shape}.overrideEnabled', 1)
+            cmds.setAttr(f'{shape}.overrideColor', IK_LEFT_COLOR)
+
+    if space != 'world':
+        cmds.parentConstraint(space, tempIkGroup)
     
     #match temp controls to main controls
     constraint = cmds.parentConstraint(targets[0], locTop, mo=0)
@@ -207,3 +250,32 @@ def createIkChain(targets=[], parent='', ikOffset=50):
         cmds.sets(ikLoc, e=1, include='animLocs')
 
     cmds.currentTime(curTime)
+
+def createAllControl(hip='', followHipPosXZ=0, followHipRotY=0):
+    # makes all con at the ground level based on the hip pos/rot
+    # returns newly created all control name
+    
+    startTime = cmds.playbackOptions(q=1, minTime=1)
+    endTime = cmds.playbackOptions(q=1, maxTime=1)
+    constraints = []
+    
+    allLoc = cmds.spaceLocator(n='all_loc')[0]
+    shape = cmds.listRelatives(allLoc, s=1)[0]
+    cmds.setAttr(f'{shape}.overrideEnabled', 1)
+    cmds.setAttr(f'{shape}.overrideColor', ALL_CON_COLOR)
+
+    if followHipPosXZ:
+        constraint = cmds.pointConstraint(hip, allLoc, skip='y', mo=0)[0]
+        constraints.append(constraint)
+
+    if followHipRotY:
+        constraint = cmds.aimConstraint(hip, allLoc, aim=[1,0,0], u=[0,1,0], worldUpType='objectrotation', worldUpVector=[0,1,0], worldUpObject=hip)[0]
+        constraints.append(constraint)
+
+    cmds.bakeResults(allLoc, time=(startTime, endTime), simulation=0)    
+
+    cmds.delete(constraints)
+
+    return allLoc
+
+
