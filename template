@@ -9,26 +9,14 @@ import bombRig
 import importlib
 importlib.reload(bombRig)
 
-# all con creation
-allLoc = bombRig.createAllControl('mixamorig:Hips', followHipPosXZ=1, followHipRotY=0)
 
 # capoera Mixamo FBX
+allLoc = bombRig.createAllControl('mixamorig:Hips', followHipPosXZ=0, followHipRotY=0)
 bombRig.createFkChain(targets=['mixamorig:Hips','mixamorig:Spine','mixamorig:Spine1','mixamorig:Neck','mixamorig:Head'], parent=allLoc, side='center')
 bombRig.createIkChain(targets=['mixamorig:LeftUpLeg', 'mixamorig:LeftLeg', 'mixamorig:LeftFoot'], parent='mixamorig:Hips', space=allLoc, side='left', ikOffset=50)
 bombRig.createIkChain(targets=['mixamorig:RightUpLeg', 'mixamorig:RightLeg', 'mixamorig:RightFoot'], parent='mixamorig:Hips', space=allLoc, side='right', ikOffset=50)
 bombRig.createIkChain(targets=['mixamorig:LeftArm', 'mixamorig:LeftForeArm', 'mixamorig:LeftHand'], parent='mixamorig:LeftShoulder', space=allLoc, side='left', ikOffset=50)
 bombRig.createIkChain(targets=['mixamorig:RightArm', 'mixamorig:RightForeArm', 'mixamorig:RightHand'], parent='mixamorig:RightShoulder', space=allLoc, side='right', ikOffset=50)
-
-
-
-
-
-
-#createFkChain(['joint2', 'joint3', 'joint4', 'joint5'], 'joint1')
-bombRig.createFkChain(['mixamorig:LeftUpLeg','mixamorig:LeftLeg','mixamorig:LeftFoot','mixamorig:LeftToeBase'], 'mixamorig:Hips')
-bombRig.createFkChain(['mixamorig:RightUpLeg','mixamorig:RightLeg','mixamorig:RightFoot','mixamorig:RightToeBase'], 'mixamorig:Hips')
-bombRig.createFkChain(['mixamorig:LeftShoulder','mixamorig:LeftArm','mixamorig:LeftForeArm','mixamorig:LeftHand'], 'mixamorig:Spine2')
-bombRig.createFkChain(['mixamorig:RightShoulder','mixamorig:RightArm','mixamorig:RightForeArm','mixamorig:RightHand'], 'mixamorig:Spine2')
 
 bombRig.createFkChain(['thigh_l', 'calf_l', 'foot_l', 'ball_l'], 'pelvis')
 bombRig.createFkChain(['thigh_r', 'calf_r', 'foot_r', 'ball_r'], 'pelvis')
@@ -37,11 +25,12 @@ bombRig.createFkChain(['clavicle_r', 'upperarm_r', 'lowerarm_r', 'hand_r'], 'spi
 bombRig.createFkChain(['pelvis', 'spine_01', 'spine_02', 'spine_03', 'spine_04', 'neck_01', 'head'], 'locator1')
 
 # UE5MAN
-bombRig.createFkChain(['spine_01', 'spine_02', 'spine_03', 'spine_04', 'neck_01', 'head'], 'pelvis')
-bombRig.createFkChain(['clavicle_l', 'upperarm_l', 'lowerarm_l', 'hand_l'], 'spine_05')
-bombRig.createFkChain(['clavicle_r', 'upperarm_r', 'lowerarm_r', 'hand_r'], 'spine_05')
-bombRig.createIkChain(targets=['thigh_l', 'calf_l', 'foot_l'], parent='pelvis', ikOffset=50)
-bombRig.createIkChain(targets=['thigh_r', 'calf_r', 'foot_r'], parent='pelvis', ikOffset=50)
+allLoc = bombRig.createAllControl('pelvis', followHipPosXZ=0, followHipRotY=0)
+bombRig.createFkChain(targets=['spine_01', 'spine_02', 'spine_03', 'spine_04', 'neck_01', 'head'], parent='pelvis', side='center')
+bombRig.createFkChain(targets=['clavicle_l', 'upperarm_l', 'lowerarm_l', 'hand_l'], parent='spine_05', side='left')
+bombRig.createFkChain(targets=['clavicle_r', 'upperarm_r', 'lowerarm_r', 'hand_r'], parent='spine_05', side='right')
+bombRig.createIkChain(targets=['thigh_l', 'calf_l', 'foot_l'], parent='pelvis', space=allLoc, side='left', ikOffset=50)
+bombRig.createIkChain(targets=['thigh_r', 'calf_r', 'foot_r'], parent='pelvis', space=allLoc, side='right', ikOffset=50)
 
 
 
