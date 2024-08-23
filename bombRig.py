@@ -19,6 +19,50 @@ ALL_CON_COLOR = 16      # white
 
 LOC_SCALE = 10
 
+def FkChainHelper(drivens=[], driver=''):
+    # Distribute driver's world space rotation to driven's rotation.
+    # Mainly used for animating only using Chest FK CON, 
+    # then distribute the average rotational values to other FK CONs in between chest and pelvis
+
+    #sels = cmds.ls(sl=1)
+    #sels = ['spine_04_fk_loc', 'spine_03_fk_loc', 'spine_02_fk_loc', 'spine_01_fk_loc']
+
+    fkCons = [driver] + drivens
+
+    # store current rotation in world
+    worldSpaceRot = cmds.xform(driver, q=1, ws=1, rotation=1)
+
+    # reset all rotation first
+    for con in fkCons:
+        cmds.setAttr(f'{con}.rx', 0)
+        cmds.setAttr(f'{con}.ry', 0)
+        cmds.setAttr(f'{con}.rz', 0)
+
+    # restore world space rotation
+    cmds.xform(driver, ws=1, rotation=worldSpaceRot)
+
+    sumRx = 0
+    sumRy = 0
+    sumRz = 0
+
+    for sel in fkCons:
+        sumRx = sumRx + cmds.getAttr(f'{sel}.rx')
+        sumRy = sumRy + cmds.getAttr(f'{sel}.ry')
+        sumRz = sumRz + cmds.getAttr(f'{sel}.rz')
+
+    neutralRx = sumRx / len(fkCons)
+    neutralRy = sumRy / len(fkCons)
+    neutralRz = sumRz / len(fkCons)
+
+    for con in fkCons:
+        cmds.setAttr(f'{con}.rx', neutralRx )
+        cmds.setAttr(f'{con}.ry', neutralRy )
+        cmds.setAttr(f'{con}.rz', neutralRz )
+
+
+
+
+
 def createFkChain(targets=[], parent='', side=''):
     # takes targets list for FK generation
     # parent generated FK controls under given parent node
