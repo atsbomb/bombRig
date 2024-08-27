@@ -120,7 +120,26 @@ def createFkChain(targets=[], parent='', side=''):
 
     # constrain target joint back
     for jointAndLoc in zip(fkLocs, targets):
-        cmds.parentConstraint(jointAndLoc[0], jointAndLoc[1])
+    
+        skipTrans = []
+    
+        if cmds.getAttr(jointAndLoc[1] + '.tx', l=1):
+            skipTrans.append('x')
+        if cmds.getAttr(jointAndLoc[1] + '.ty', l=1):
+            skipTrans.append('y')
+        if cmds.getAttr(jointAndLoc[1] + '.tz', l=1):
+            skipTrans.append('z')
+
+        skipRot = []
+
+        if cmds.getAttr(jointAndLoc[1] + '.rx', l=1):
+            skipRot.append('x')
+        if cmds.getAttr(jointAndLoc[1] + '.ry', l=1):
+            skipRot.append('y')
+        if cmds.getAttr(jointAndLoc[1] + '.rz', l=1):
+            skipRot.append('z')
+
+        cmds.parentConstraint(jointAndLoc[0], jointAndLoc[1], st=skipTrans, sr=skipRot)
 
     # add to set
     if not cmds.objExists('animLocs'):
