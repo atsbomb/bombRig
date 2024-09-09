@@ -59,16 +59,6 @@ cmds.currentTime(int(cmds.playbackOptions(q=1, min=1)))
 
 #for p in zip(locs, sels):
 for p in zip([sj, mj], [sels[0], sels[1]]):
-    """
-    skipTrans = []
-    if cmds.getAttr(p[1] + '.tx', l=1):
-        skipTrans.append('x')
-    if cmds.getAttr(p[1] + '.ty', l=1):
-        skipTrans.append('y')
-    if cmds.getAttr(p[1] + '.tz', l=1):
-        skipTrans.append('z')
-    """
-
     skipRot = []
     if cmds.getAttr(p[1] + '.rx', l=1):
         skipRot.append('x')
@@ -79,14 +69,6 @@ for p in zip([sj, mj], [sels[0], sels[1]]):
 
     #cmds.parentConstraint(p[0], p[1], st=skipTrans, sr=skipRot, mo=0)
     cmds.parentConstraint(p[0], p[1], st=['x', 'y', 'z'], sr=skipRot, mo=1)
-
-
-
-
-"""
-for p in zip([sj, mj], [sels[0], sels[1]]):
-    cmds.parentConstraint(p[0], p[1], st=['x', 'y', 'z'], mo=1)
-"""
 
 cmds.orientConstraint(ikhl, sels[2], mo=1)
 
