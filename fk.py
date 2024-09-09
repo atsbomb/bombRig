@@ -13,7 +13,7 @@ for sel in sels:
 for i in range(1, len(locs)):
     cmds.parent(locs[i], locs[i-1])
 
-cmds.group(locs[0], n=f'{sels[0]}_fk_loc_grp')
+group = cmds.group(locs[0], n=f'{sels[0]}_fk_loc_grp')
 cmds.parentConstraint(parent, group)
 
 for loc in locs:
@@ -30,6 +30,22 @@ for p in zip(sels, locs):
         cmds.setKeyframe(p[1])
 
 for p in zip(locs, sels):
-    cmds.parentConstraint(p[0], p[1], mo=0)
+    skipTrans = []
+    if cmds.getAttr(p[1] + '.tx', l=1):
+        skipTrans.append('x')
+    if cmds.getAttr(p[1] + '.ty', l=1):
+        skipTrans.append('y')
+    if cmds.getAttr(p[1] + '.tz', l=1):
+        skipTrans.append('z')
+
+    skipRot = []
+    if cmds.getAttr(p[1] + '.rx', l=1):
+        skipRot.append('x')
+    if cmds.getAttr(p[1] + '.ry', l=1):
+        skipRot.append('y')
+    if cmds.getAttr(p[1] + '.rz', l=1):
+        skipRot.append('z')
+
+    cmds.parentConstraint(p[0], p[1], st=skipTrans, sr=skipRot, mo=0)
 
 cmds.select(locs)
