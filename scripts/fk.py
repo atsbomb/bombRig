@@ -1,6 +1,8 @@
 # bombRig simpler
 # FK chain
 
+import maya.cmds as cmds
+
 sels = cmds.ls(sl=1)
 parent = sels.pop(0)
 locs = []

@@ -34,7 +34,7 @@ cmds.pointConstraint(ikhl, ikh)
 polel = cmds.spaceLocator(n=f'{sels[1]}_pole_loc')[0]
 cmds.poleVectorConstraint(polel, ikh)
 
-mainGroup = cmds.group(group, sj, ikh, ikhl, polel, n=f'{sels[2]}_ik_loc_main_grp')
+mainGroup = cmds.group(group, sj, ikh, ikhl, polel, n=f'{sels[2]}_ik_loc_grp')
 cmds.parentConstraint(all, mainGroup, mo=1)
 
 # might want to skip zero'ing out the xform for IK, do more tests with real examples
