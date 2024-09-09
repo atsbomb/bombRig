@@ -37,6 +37,8 @@ cmds.poleVectorConstraint(polel, ikh)
 mainGroup = cmds.group(group, sj, ikh, ikhl, polel, n=f'{sels[2]}_ik_loc_main_grp')
 cmds.parentConstraint(all, mainGroup, mo=1)
 
+# might want to skip zero'ing out the xform for IK, do more tests with real examples
+"""
 for p in zip([sels[2], sels[1]], [ikhl, polel]):
     cmds.currentTime(cmds.playbackOptions(q=1, min=1))
     cmds.xform(p[1], ws=1, t=cmds.xform(p[0], q=1, ws=1, t=1), ro=cmds.xform(p[0], q=1, ws=1, ro=1))
@@ -45,15 +47,13 @@ for p in zip([sels[2], sels[1]], [ikhl, polel]):
     cmds.setAttr(f'{p[1]}.t', 0, 0, 0)
     cmds.setAttr(f'{p[1]}.r', 0, 0, 0)
     cmds.setAttr(f'{p[1]}.s', 1, 1, 1)
+"""
 
 for p in zip([sels[2], sels[1]], [ikhl, polel]):
     for t in range(int(cmds.playbackOptions(q=1, min=1)), int(cmds.playbackOptions(q=1, max=1)) + 1):
         cmds.currentTime(t)
         cmds.xform(p[1], ws=1, t=cmds.xform(p[0], q=1, ws=1, t=1), ro=cmds.xform(p[0], q=1, ws=1, ro=1))
         cmds.setKeyframe(p[1])
-
-
-
 
 cmds.currentTime(int(cmds.playbackOptions(q=1, min=1)))
 
