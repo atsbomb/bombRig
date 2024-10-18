@@ -2,7 +2,7 @@
 
 - Simple FK
 
-Select multiple objects in order and run. First selection will be the parent of the following FK constrols.
+Select multiple objects in order and run.
 ```
 import importlib
 import bombRig.fk
@@ -12,7 +12,7 @@ bombRig.fk.run()
 
 - Simple IK
 
-Select exactly 5 objects and run. First selection should be the all character control, second selection should be parent of the following IK chain, the last 3 objects will be the actual IK chain (start, mid, end).
+Select exactly 4 objects and run. First selection should be parent of the following IK chain, the last 3 objects will be the actual IK chain (start, mid, end).
 ```
 import importlib
 import bombRig.ik
