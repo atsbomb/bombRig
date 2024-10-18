@@ -1,13 +1,13 @@
 # bombRig simpler
 # IK chain 3 joints
-# select exactly 5 objects: all, parent of IK, IK start joint, IK mid joint and IK end joint
+# select exactly 4 objects: parent of IK, IK start joint, IK mid joint and IK end joint
 
 import maya.cmds as cmds
 
 def run():
 
     sels = cmds.ls(sl=1)
-    all = sels.pop(0)
+    #all = sels.pop(0)
     parent = sels.pop(0)
 
     cmds.select(cl=1)
@@ -37,7 +37,7 @@ def run():
     cmds.poleVectorConstraint(polel, ikh)
 
     mainGroup = cmds.group(group, sj, ikh, ikhl, polel, n=f'{sels[2]}_ik_loc_grp')
-    cmds.parentConstraint(all, mainGroup, mo=1)
+    #cmds.parentConstraint(all, mainGroup, mo=1)
 
     for p in zip([sels[2], sels[1]], [ikhl, polel]):
         for t in range(int(cmds.playbackOptions(q=1, min=1)), int(cmds.playbackOptions(q=1, max=1)) + 1):

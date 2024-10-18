@@ -1,12 +1,13 @@
 # bombRig simpler
 # FK chain
+# select as many objects in order you want, first selected object will be the parent of the FK chain.
 
 import maya.cmds as cmds
 
 def run():
 
     sels = cmds.ls(sl=1)
-    parent = sels.pop(0)
+    #parent = sels.pop(0)
     locs = []
 
     for sel in sels:
@@ -18,7 +19,7 @@ def run():
         cmds.parent(locs[i], locs[i-1])
 
     group = cmds.group(locs[0], n=f'{sels[0]}_fk_loc_grp')
-    cmds.parentConstraint(parent, group)
+    #cmds.parentConstraint(parent, group)
 
     for loc in locs:
         currentMatrix = cmds.xform(loc, q=1, matrix=1)
