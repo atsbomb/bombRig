@@ -1,6 +1,6 @@
 # bombRig simpler
 # FK chain
-# select as many objects in order you want, first selected object will be the parent of the FK chain.
+# select as many objects in order you want.
 
 import maya.cmds as cmds
 
