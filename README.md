@@ -1,3 +1,11 @@
+# bombRig
+
+Functions to create a temporary rig for hierarchical skeleton (or similar sorts), while retaining the existing animation on the source object.
+
+# Installation
+
+Clone this repository and add `MAYA_MODULE_PATH` to your `Maya.env`. Best if you create a shelf button for each functions.
+
 # Functions
 
 - Simple FK
