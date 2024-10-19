@@ -30,7 +30,7 @@ bombRig.ik.run()
 
 - Spine
 
-Select more than 3 objects in order. First is considered hip, the last is considered chest, while the rest is spine. Creates 2 points pseudo spline IK set up.
+Select more than 3 objects in order. First is considered hip, the last is considered chest, while the rest is spine. Creates 2 points pseudo spline IK set up. This function is destructive. Original animatio won't be kept the same while the function tries to reproduce as close as possible.
 ```
 import importlib
 import bombRig.spine
