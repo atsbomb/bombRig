@@ -4,7 +4,7 @@ Functions to create a temporary rig for hierarchical skeleton (or similar sorts)
 
 # Installation
 
-Clone this repository and add `MAYA_MODULE_PATH` to your `Maya.env`. Best if you create a shelf button for each functions.
+Clone this repository and add the path to  `MAYA_MODULE_PATH` in your `Maya.env`. Create a shelf button for one off use or write some snippets of codes with predetermined selection if you are dealing with same structured skeleton multiple times i.e. UE mannequin.
 
 # Functions
 
