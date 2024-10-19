@@ -40,6 +40,13 @@ importlib.reload(bombRig.spine)
 bombRig.spine.run()
 ```
 
+- Circle CON
 
-
+Select as many locators and run. The function asks you to type in the scale for the CON size. Original locator shape will be lost and replaced by a simple circle CON shape.
+```
+import importlib
+import bombRig.circleCon
+importlib.reload(bombRig.circleCon)
+bombRig.circleCon.run()
+```
 
