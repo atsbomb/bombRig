@@ -10,7 +10,7 @@ Clone this repository and add the path to  `MAYA_MODULE_PATH` in your `Maya.env`
 
 - FK
 
-Select multiple objects in order and run.
+Select multiple objects in order and run. Everything selected will be driven by FK CON both translation and rotation where applicable.
 ```
 import importlib
 import bombRig.fk
@@ -30,9 +30,9 @@ bombRig.ik.run()
 
 - Spine
 
-Select more than 3 objects in order. First is considered hip, the last is considered chest, while the rest is spine. Creates 2 points pseudo spline IK set up. Tweak the blend value of orientConstraint for the middle joints to achieve the preferred bend ratio for the spine.
+Select more than 3 objects in order and run. First is considered hip, the last is considered chest, while the rest is spine. Creates 2 points pseudo spline IK set up. Tweak the blend value of orientConstraint for the middle joints to achieve the preferred bend ratio for the spine.
 
-Note: this function is destructive. Original animation won't be kept exactly the same.
+Note: this function is destructive. Original animation won't be kept exactly the same, though the function tries to retain best it can.
 ```
 import importlib
 import bombRig.spine
@@ -42,7 +42,7 @@ bombRig.spine.run()
 
 - Circle CON
 
-Select as many locators and run. The function asks you to type in the scale for the CON size. Original locator shape will be lost and replaced by a simple circle CON shape.
+Select as many locators (or any object with shape) and run. The function asks you for the CON scale multiplier. Original locator shape will be lost and replaced by a simple circle CON shape.
 ```
 import importlib
 import bombRig.circleCon
