@@ -8,7 +8,7 @@ Clone this repository and add the path to  `MAYA_MODULE_PATH` in your `Maya.env`
 
 # Functions
 
-- Simple FK
+- FK
 
 Select multiple objects in order and run.
 ```
@@ -18,7 +18,7 @@ importlib.reload(bombRig.fk)
 bombRig.fk.run()
 ```
 
-- Simple IK
+- IK
 
 Select exactly 4 objects and run. First selection should be parent of the following IK chain, the last 3 objects will be the actual IK chain (start, mid, end).
 ```
@@ -27,3 +27,17 @@ import bombRig.ik
 importlib.reload(bombRig.ik)
 bombRig.ik.run()
 ```
+
+- Spine
+
+Select more than 3 objects in order. First is considered hip, the last is considered chest, while the rest is spine. Creates 2 points pseudo spline IK set up.
+```
+import importlib
+import bombRig.spine
+importlib.reload(bombRig.spine)
+bombRig.spine.run()
+```
+
+
+
+
