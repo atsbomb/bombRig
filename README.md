@@ -32,7 +32,7 @@ bombRig.ik.run()
 
 Select more than 3 objects in order. First is considered hip, the last is considered chest, while the rest is spine. Creates 2 points pseudo spline IK set up. Tweak the blend value of orientConstraint for the middle joints to achieve the preferred bend ratio for the spine.
 
-Note: this function is destructive. Original animatio won't be kept exactly the same.
+Note: this function is destructive. Original animation won't be kept exactly the same.
 ```
 import importlib
 import bombRig.spine
