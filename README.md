@@ -42,7 +42,7 @@ bombRig.spine.run()
 
 - Circle CON
 
-Select as many locators (or any object with shape) and run. The function asks you for the CON scale multiplier. Original locator shape will be lost and replaced by a simple circle CON shape.
+Select as many locators (or any object with shape) and run. The function asks for the CON axis and scale multiplier. Original locator shape will be lost and replaced by a simple circle CON shape.
 ```
 import importlib
 import bombRig.circleCon
