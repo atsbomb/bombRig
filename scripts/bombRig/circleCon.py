@@ -4,7 +4,7 @@ import maya.cmds as cmds
 
 def run():
     cmds.promptDialog(m='CON scale:', tx='10')
-    scaleValue = cmds.promptDialog(q=1, tx=1)
+    scaleValue = float(cmds.promptDialog(q=1, tx=1))
     
     sels = cmds.ls(sl=1)
     
