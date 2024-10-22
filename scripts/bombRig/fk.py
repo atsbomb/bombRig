@@ -53,4 +53,7 @@ def run():
 
         cmds.parentConstraint(p[0], p[1], st=skipTrans, sr=skipRot, mo=0)
 
-    cmds.select(locs)
+    cmds.delete(locs, staticChannels=1)
+    cmds.filterCurve(locs)
+
+    cmds.select(locs)   

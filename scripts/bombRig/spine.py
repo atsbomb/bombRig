@@ -41,4 +41,8 @@ def run():
 
     # grouping
     cmds.group([hipLoc, chestLoc, *midLocs], n=f'{hipJoint}_spine_loc_grp')
+
+    cmds.delete([hipLoc, chestLoc], staticChannels=1)
+    cmds.filterCurve([hipLoc, chestLoc])
+
     cmds.select(hipLoc, chestLoc)

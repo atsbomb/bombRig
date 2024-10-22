@@ -62,5 +62,10 @@ def run():
 
     cmds.orientConstraint(ikhl, sels[2], mo=1)
 
+    cmds.hide([sj, ikh, group])
+
+    cmds.delete([ikhl, polel], staticChannels=1)
+    cmds.filterCurve([ikhl, polel])
+
     cmds.select([ikhl, polel])
 
