@@ -42,9 +42,9 @@ bombRig.spine.run()
 
 - Rotation Driver
 
-Select exactly 2 objects in order of driver then driven. The function will set up (or remove) a simple set up for driver driving driven's rotation with adjustable multiplier.
+Select exactly 2 objects in order of driver then driven. The function will set up (or remove) a simple connections for driver driving driven's rotation with adjustable multiplier.
 
-Note: if you add another additional means of control on top of this, it tends to create cyclical loop. This function is meant to be a simple solution for quick posing, beware.
+Note: if you add another additional control on top of this (i.e. world space control), it tends to create cyclical loop. This function is meant to be a simple solution for quick posing, beware.
 
 ```
 import importlib
