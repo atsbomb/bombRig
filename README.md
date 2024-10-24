@@ -40,6 +40,26 @@ importlib.reload(bombRig.spine)
 bombRig.spine.run()
 ```
 
+- Rotation Driver
+
+Select exactly 2 objects in order of driver then driven. The function will set up (or remove) a simple set up for driver driving driven's rotation with adjustable multiplier.
+
+Note: if you add another additional means of control on top of this, it tends to create cyclical loop. This function is meant to be a simple solution for quick posing, beware.
+
+```
+import importlib
+import bombRig.rotationDriver
+importlib.reload(bombRig.rotationDriver)
+bombRig.rotationDriver.setup()
+```
+
+```
+import importlib
+import bombRig.rotationDriver
+importlib.reload(bombRig.rotationDriver)
+bombRig.rotationDriver.remove()
+```
+
 - Circle CON
 
 Select as many locators (or any object with shape) and run. The function asks for the CON axis and scale multiplier. Original locator shape will be lost and replaced by a simple circle CON shape.
